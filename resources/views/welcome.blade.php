@@ -10,6 +10,6 @@
 <h1 class="text-3xl font-bold underline">
     Hello world!
   </h1>
-  <button class="h-10 px-6 m-2 bg-blue-500 hover:bg-blue-800  active:bg-blue-900 focus:outline-none focus:ring focus:ring-blue-700/30   rounded-md text-white ">Primary</button>
+  <button class="h-10 px-6 m-2 bg-blue-500 hover:bg-blue-800 active:bg-blue-900 focus:outline-none focus:ring focus:ring-blue-700/30 rounded-md text-white ">Primary</button>
 </body>
 </html>
