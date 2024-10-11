@@ -1,18 +1,19 @@
 @if ($paginator->hasPages())
-    <div class="join grid grid-cols-2">
-        
+    <nav>
+        <ul class="pagination">
             {{-- Previous Page Link --}}
             @if ($paginator->onFirstPage())
-                <button class="disabled" aria-disabled="true"></button>
+                <li class="disabled" aria-disabled="true"><span>@lang('pagination.previous')</span></li>
             @else
-                <a href="{{ $paginator->previousPageUrl() }}" class="join-item btn btn-outline" rel="prev">Previous Page</a>
+                <li><a href="{{ $paginator->previousPageUrl() }}" rel="prev">@lang('pagination.previous')</a></li>
             @endif
+
             {{-- Next Page Link --}}
             @if ($paginator->hasMorePages())
-                <a href="{{ $paginator->nextPageUrl() }}" rel="next" class="join-item btn btn-outline" >Next Page</a>
+                <li><a href="{{ $paginator->nextPageUrl() }}" rel="next">@lang('pagination.next')</a></li>
             @else
-                <a class="disabled" aria-disabled="true" class="join-item btn btn-outline"></a>
+                <li class="disabled" aria-disabled="true"><span>@lang('pagination.next')</span></li>
             @endif
-        
-    </div>
+        </ul>
+    </nav>
 @endif
