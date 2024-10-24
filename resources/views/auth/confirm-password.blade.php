@@ -1,27 +1,32 @@
-<x-guest-layout>
-    <div class="mb-4 text-sm text-gray-600">
-        {{ __('This is a secure area of the application. Please confirm your password before continuing.') }}
+@extends('partials.layout')
+@section('content')
+<div class="card bg-base-200 w-2/5 shadow-xl mx-auto my-auto">
+    <div class="card-body">
+        <div class="mb-4 text-sm base-content">
+            {{ __('This is a secure area of the application. Please confirm your password before continuing.') }}
+        </div>
+
+        <form method="POST" action="{{ route('password.confirm') }}">
+            @csrf
+
+            <!-- Password -->
+            <label class="form-control w-full">
+                <div class="label">
+                    <span class="label-text">Password</span>
+                </div>
+                <input type="password" name="password" placeholder="Password" class="input input-bordered w-full @error('password')input-error @enderror" />
+                <div class="label">
+                    @error('password')
+                        <span class="label-text-alt text-error">{{ $message }}</span>
+                    @enderror
+                </div>
+            </label>
+
+            <div class="flex justify-end mt-4">
+                <input type="submit" class="btn btn-primary" value="{{ __('Confirm') }}">
+            </div>
+        </form>
     </div>
+</div>
 
-    <form method="POST" action="{{ route('password.confirm') }}">
-        @csrf
-
-        <!-- Password -->
-        <div>
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <div class="flex justify-end mt-4">
-            <x-primary-button>
-                {{ __('Confirm') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+@endsection
