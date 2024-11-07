@@ -26,40 +26,35 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $user = $request->user();
-        $user->fill($request->validated());
+        $request->user()->fill($request->validated());
 
-        if ($user->isDirty('email')) {
-            $user->email_verified_at = null;
+        if ($request->user()->isDirty('email')) {
+            $request->user()->email_verified_at = null;
         }
 
-        if ($request->filled('password')) {
-            $user->password = bcrypt($request->password);
-        }
+        $request->user()->save();
 
-        $user->save();
-
-        // Redirect to the profile edit page with a success status
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
-
-
 
     /**
      * Delete the user's account.
      */
     public function destroy(Request $request): RedirectResponse
     {
+        $request->validateWithBag('userDeletion', [
+            'password' => ['required', 'current_password'],
+        ]);
+
         $user = $request->user();
 
-        // Perform account deletion
-        $user->delete();
-
-        // Logout the user after deletion
         Auth::logout();
 
-        // Redirect to the home page with a success message
-        return Redirect::route('home')->with('status', 'account-deleted');
-    }
+        $user->delete();
 
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return Redirect::to('/');
+    }
 }

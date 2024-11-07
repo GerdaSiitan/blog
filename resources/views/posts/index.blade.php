@@ -5,32 +5,33 @@
         {{ $posts->links() }}
     </div>
     <div class="overflow-x-auto">
-        <table class="table">
+        <table class="table table-zebra">
             <thead>
                 <th>ID</th>
                 <th>Title</th>
+                <th>Author</th>
                 <th>Updated</th>
                 <th>Created</th>
                 <th>Actions</th>
             </thead>
             <tbody>
                 @foreach($posts as $post)
-                    <tr>
+                    <tr class="hover">
                         <td>{{$post->id}}</td>
                         <td>{{$post->title}}</td>
+                        <td>{{$post->user->name}}</td>
                         <td>{{$post->updated_at}}</td>
                         <td>{{$post->created_at}}</td>
                         <td>
                             <div class="join">
-                                <a class="btn join-item btn-info">View</a>
+                                <a href="{{ route('posts.show', ['post' => $post]) }}" class="btn join-item btn-info">View</a>
                                 <a href="{{ route('posts.edit', ['post' => $post]) }}" class="btn join-item btn-warning">Edit</a>
-                                <form method="POST" action="{{ route('posts.destroy', ['post' => $post]) }}">
-                                    @method('DELETE')
-                                    @csrf
-                                    <input type="submit" class="btn join-item btn-error" value="Delete">
-                                </form>
+                                <button form="delete-form-{{$post->id}}" class="btn join-item btn-error">Delete</button>
                             </div>
-
+                            <form id="delete-form-{{$post->id}}" method="POST" action="{{ route('posts.destroy', ['post' => $post]) }}">
+                                @method('DELETE')
+                                @csrf
+                            </form>
                         </td>
                     </tr>
                 @endforeach

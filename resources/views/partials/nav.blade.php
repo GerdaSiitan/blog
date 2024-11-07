@@ -26,14 +26,16 @@
     <div class="navbar-center hidden lg:flex">
         <ul class="menu menu-horizontal px-1">
             {{-- <li><a>Item 1</a></li> --}}
-            <li>
-                <details>
-                    <summary>Admin</summary>
-                    <ul class="p-2 z-10">
-                        <li><a href="{{route('posts.index')}}">Posts</a></li>
-                    </ul>
-                </details>
-            </li>
+            @auth
+                <li>
+                    <details>
+                        <summary>Admin</summary>
+                        <ul class="p-2 z-10">
+                            <li><a href="{{route('posts.index')}}">Posts</a></li>
+                        </ul>
+                    </details>
+                </li>
+            @endauth
             {{-- <li><a>Item 3</a></li> --}}
         </ul>
     </div>

@@ -2,13 +2,12 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Post>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Comment>
  */
-class PostFactory extends Factory
+class CommentFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -22,15 +21,9 @@ class PostFactory extends Factory
         if(rand(0,9)){
             $updated = $created;
         }
-        $image = null;
-        if(rand(0,9)){
-           $image = 'https://picsum.photos/seed/'. fake()->uuid() .'/1280/720';
-        }
+
         return [
-            'title' => fake()->sentence(),
-            'body' => fake()->paragraphs(6, true),
-            'image' => $image,
-            //'user_id' => User::select(['id'])->inRandomOrder()->first()->id,
+            'body' => fake()->sentences(3, true),
             'created_at' => $created,
             'updated_at' => $updated,
         ];

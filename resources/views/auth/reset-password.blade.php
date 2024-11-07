@@ -1,10 +1,10 @@
 @extends('partials.layout')
-
 @section('content')
 <div class="card bg-base-200 w-2/5 shadow-xl mx-auto my-auto">
     <div class="card-body">
-        <form method="POST" action="{{ route('password.update') }}">
+        <form method="POST" action="{{ route('password.store') }}">
             @csrf
+            <input type="hidden" name="token" value="{{ $request->route('token') }}">
 
             <label class="form-control w-full">
                 <div class="label">
@@ -17,24 +17,23 @@
                     @enderror
                 </div>
             </label>
-
             <label class="form-control w-full">
                 <div class="label">
-                    <span class="label-text">New Password</span>
+                    <span class="label-text">Password</span>
                 </div>
-                <input type="password" name="password" placeholder="New Password" class="input input-bordered w-full @error('password') input-error @enderror" />
+                <input type="password" name="password" placeholder="Password" class="input input-bordered w-full @error('password')input-error @enderror" />
                 <div class="label">
                     @error('password')
                         <span class="label-text-alt text-error">{{ $message }}</span>
                     @enderror
                 </div>
             </label>
-
             <label class="form-control w-full">
                 <div class="label">
-                    <span class="label-text">Confirm Password</span>
+                    <span class="label-text">Password Confirmation</span>
                 </div>
-                <input type="password" name="password_confirmation" placeholder="Confirm Password" class="input input-bordered w-full @error('password_confirmation') input-error @enderror" />
+                <input type="password" name="password_confirmation" placeholder="Password"
+                    class="input input-bordered w-full @error('password_confirmation') input-error @enderror" />
                 <div class="label">
                     @error('password_confirmation')
                         <span class="label-text-alt text-error">{{ $message }}</span>
@@ -48,4 +47,5 @@
         </form>
     </div>
 </div>
+
 @endsection
